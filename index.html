@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Indian Land Units</title>
+    <link rel="stylesheet" href="index.css" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <div class="heading">Indian Land Measurement Units</div>
+      </div>
+    </header>
+
+    <main id="page-content">
+      <div class="subheading-info">
+        <p>
+          India’s heritage of land measurement embraces dozens of unique units,
+          each woven into regional history and daily life. The size or value of
+          a land unit can vary widely - not just from one state to another, but
+          sometimes even within districts. Our database is a collaborative
+          work-in-progress: we may not yet cover every local unit for every
+          state, but you can help.
+          <a
+            href="mailto:namastevis@amitjena.com"
+            class="subheading-link"
+            tabindex="0"
+            >Drop us a line</a
+          >, your contribution will help enrich this public resource, which is
+          open to all on
+          <a
+            href="https://github.com/namastevis/land-measurement-units"
+            class="subheading-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub</a
+          >. Every value in this visualisation is expressed in square feet for
+          clarity and easy comparison.
+        </p>
+        <hr />
+      </div>
+
+      <div id="unit-alert" aria-live="polite"></div>
+      <div class="unit-btn-row" id="units"></div>
+      <div class="svg-container">
+        <svg id="chart" class="chart"></svg>
+      </div>
+    </main>
+
+    <div class="footer-space"></div>
+
+    <footer class="footer" id="pageFooter" role="contentinfo">
+      <span class="footer-left">
+        <a
+          href="https://namastevis.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          >&copy; Namastevis</a
+        >
+        |
+        <a
+          href="https://github.com/namastevis"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub</a
+        >
+        |
+        <a
+          href="https://www.youtube.com/channel/UC-kHZFHm4-2TW0ng87m5a-A"
+          target="_blank"
+          rel="noopener noreferrer"
+          >YouTube</a
+        >
+        |
+        <a
+          href="https://www.linkedin.com/in/namastevis/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >LinkedIn</a
+        >
+        |
+        <a
+          href="https://www.instagram.com/namastevis/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Instagram</a
+        >
+        |
+        <a
+          href="https://x.com/namastevis"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Twitter/X</a
+        >
+      </span>
+      <button class="footer-right" id="backToTopBtn" aria-label="Back to Top">
+        &#8593;
+      </button>
+    </footer>
+
+    <script src="index.js"></script>
+  </body>
+</html>

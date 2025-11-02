@@ -1,0 +1,268 @@
+body {
+  font-size: 1em;
+  font-family: Inter, serif;
+  margin: 0;
+}
+
+#page-content {
+  width: 85vw;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+header {
+  background-color: #000000;
+  padding: 1.5em 0 1em 0;
+  margin-bottom: 2em;
+  display: flex;
+  justify-content: center;
+}
+
+.header-content {
+  display: flex;
+  justify-content: flex-start;
+  width: 85vw;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.heading {
+  color: #F4BA02;
+  font-size: 2.3rem;
+  font-weight: bold;
+  margin-left: 0;
+  letter-spacing: 0.02em;
+}
+
+#units,
+.unit-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+  overflow-x: auto;
+}
+
+.unit-btn {
+  background-color: #8DADAF;
+  border: 1px solid #888;
+  padding: 2.2px 7.5px;
+  margin: 0;
+  cursor: pointer;
+  border-radius: 3px;
+  user-select: none;
+  transition: background 0.2s;
+  font-size: 0.88em;
+  flex: 0 0 auto;
+  min-width: 48px;
+  line-height: 1.05;
+}
+
+.unit-btn.selected {
+  color: white;
+  font-weight: bold;
+}
+
+#unit-alert {
+  color: #c02323;
+  font-size: 0.93em;
+  margin-bottom: 7px;
+  min-height: 15px;
+  font-weight: 500;
+}
+
+.svg-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.chart {
+  width: 100%;
+  min-width: 370px;
+  max-width: 980px;
+  height: auto;
+  margin-top: 18px;
+  display: block;
+}
+
+/* State labels styling */
+.state-label {
+  font-size: 0.90em;
+  fill: #202020;
+  text-anchor: end;
+  alignment-baseline: middle;
+  dominant-baseline: middle;
+  letter-spacing: 0.01em;
+}
+
+.bar {
+  opacity: 0.85;
+}
+
+.bar-label {
+  font-size: 0.72em;
+  font-family: inherit;
+  fill: white;
+  text-anchor: end;
+  alignment-baseline: middle;
+  dominant-baseline: middle;
+}
+
+.bar-label.missing {
+  fill: #bbb;
+  font-style: italic;
+  text-anchor: start;
+}
+
+.footer-space {
+  height: 73px;
+  width: 100%;
+}
+
+.footer {
+  width: 100%;
+  background: #f7f8fc;
+  color: #232a44;
+  font-size: 1em;
+  font-family: "Segoe UI", Arial, sans-serif;
+  border-top: 1px solid #e0e4ee;
+  box-shadow: 0 -2px 8px #d2d8e7;
+  padding: 12px 32px 12px 17px;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 42px;
+  z-index: 30;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.footer.visible {
+  display: flex;
+}
+
+.footer-left {
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.footer-left a {
+  color: #232a44;
+  text-decoration: none;
+  user-select: text;
+}
+
+.footer-right {
+  font-size: 1.6em;
+  cursor: pointer;
+  user-select: none;
+  background: none;
+  border: none;
+  outline: none;
+  color: #234e88;
+  margin-left: 18px;
+  margin-right: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  transition: color 0.18s;
+  border-radius: 6px;
+}
+
+.footer-right:active,
+.footer-right:focus {
+  background: #e0e4f8;
+}
+
+.footer-right:hover {
+  color: #18346a;
+}
+
+@media (max-width: 850px) {
+  #page-content,
+  .header-content {
+    width: 97vw;
+    max-width: 100vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+  }
+}
+
+@media (max-width: 550px) {
+  .heading {
+    font-size: 1.12rem;
+  }
+  .unit-btn {
+    min-width: 34px;
+    font-size: 0.77em;
+    padding: 1.6px 3.2px;
+  }
+  #unit-alert {
+    font-size: 0.83em;
+  }
+  .chart {
+    min-width: 160px;
+  }
+  .state-label {
+    font-size: 0.76em;
+  }
+  .bar-label {
+    font-size: 0.69em;
+  }
+}
+@media (max-width: 350px) {
+  .footer {
+    flex-wrap: nowrap;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  .footer-left {
+    flex-shrink: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: auto;
+  }
+  .footer-right {
+    margin-left: 6px;
+    margin-right: 2px;
+    flex-shrink: 0;
+  }
+}
+
+.subheading-info {
+  background: #f6fafd;
+  border-left: 5px solid #2e5aaa;
+  padding: 16px 20px 13px 17px;
+  margin-bottom: 19px;
+  margin-top: 0;
+  border-radius: 8px;
+  font-size: 1.03em;
+  line-height: 1.65;
+  color: #232c2f;
+  box-shadow: 0 2px 9px #c7d6e022;
+}
+
+.subheading-info p {
+  margin: 0;
+  padding: 0;
+}
+
+.subheading-link {
+  text-decoration: underline;
+  color: #184490;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.18s;
+  word-break: break-all;
+}
+
+.subheading-link:visited {
+  color: #522b6a;
+}
+.subheading-link:hover,
+.subheading-link:focus {
+  color: #0077cc;
+  text-decoration: underline;
+}
+

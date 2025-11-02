@@ -1,0 +1,104 @@
+{
+  "Andhra Pradesh": {
+    "Ankanam": 72,
+    "Guntha": 1089,
+    "Kuncham": 4356
+  },
+  "Arunachal Pradesh": {},
+  "Assam": {
+    "Bigha": 14400,
+    "Kattha": 720,
+    "Lecha": 144
+  },
+  "Bihar": {
+    "Bigha Pucca": 27225,
+    "Biswa Pucca": 1365,
+    "Biswa": 436
+  },
+  "Chandigarh": {},
+  "Delhi": {},
+  "Goa": {},
+  "Gujarat": {
+    "Bigha": 17216
+  },
+  "Haryana": {
+    "Bigha Pucca": 27225,
+    "Bigha Kachha": 9075,
+    "Kanal": 5445,
+    "Sarsahi": 30.25,
+    "Biswansi": 22,
+    "Biswa Kachha": 455
+  },
+  "Himachal Pradesh": {
+    "Bigha": 8712,
+    "Biswa": 436,
+    "Bishwa": 45,
+    "Killa": 4840
+  },
+  "Jammu and Kashmir": {},
+  "Jharkhand": {
+    "Dhur": 68
+  },
+  "Karnataka": {
+    "Ankanam": 72,
+    "Cent": 435.6,
+    "Guntha": 1089
+  },
+  "Kerala": {
+    "Cent": 435.6
+  },
+  "Ladakh": {},
+  "Lakshadweep": {},
+  "Madhya Pradesh": {
+    "Bigha": 12000,
+    "Kattha": 600
+  },
+  "Meghalaya": {},
+  "Mizoram": {},
+  "Nagaland": {},
+  "Odisha": {},
+  "Punjab": {
+    "Bigha Pucca": 27225,
+    "Bigha Kachha": 9075,
+    "Kanal": 5445,
+    "Sarsahi": 30.25,
+    "Biswansi": 22,
+    "Biswa Kachha": 455
+  },
+  "Puducherry": {},
+  "Rajasthan": {
+    "Bigha Pucca": 27225,
+    "Bigha": 17216,
+    "Biswa Pucca": 1365,
+    "Biswa": 960,
+    "Biswansi": 48
+  },
+  "Sikkim": {},
+  "Tamil Nadu": {
+    "Cent": 435.6,
+    "Ground": 2400
+  },
+  "Tripura": {
+    "Dhur": 3.6
+  },
+  "Uttar Pradesh": {
+    "Bigha Pucca": 27225,
+    "Bigha Kachha": 9075,
+    "Kanal": 5445,
+    "Sarsahi": 30.25,
+    "Biswansi": 22,
+    "Biswa Kachha": 455
+  },
+  "Uttarakhand": {
+    "Bigha": 8712,
+    "Biswa": 436,
+    "Bishwa": 45,
+    "Killa": 4840
+  },
+  "West Bengal": {
+    "Bigha": 14400,
+    "Chatak": 180,
+    "Decimal": 436,
+    "Kattha": 720
+  }
+}
