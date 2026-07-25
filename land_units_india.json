@@ -10,16 +10,31 @@
     "Kattha": 720,
     "Lecha": 144
   },
+  "Andaman and Nicobar Islands": {},
   "Bihar": {
     "Bigha Pucca": 27225,
-    "Biswa Pucca": 1365,
-    "Biswa": 436
+    "Katha": 1361.25,
+    "Dhur": 68.06
   },
-  "Chandigarh": {},
-  "Delhi": {},
-  "Goa": {},
+  "Chandigarh": {
+    "Kanal": 5445,
+    "Marla": 272.25
+  },
+  "Chhattisgarh": {
+    "Bigha": 27225
+  },
+  "Dadra and Nagar Haveli and Daman and Diu": {},
+  "Delhi": {
+    "Bigha": 27225,
+    "Biswa": 450
+  },
+  "Goa": {
+    "Guntha": 1089,
+    "Are": 1076.39
+  },
   "Gujarat": {
-    "Bigha": 17216
+    "Bigha": 17216,
+    "Guntha": 1089
   },
   "Haryana": {
     "Bigha Pucca": 27225,
@@ -31,13 +46,17 @@
   },
   "Himachal Pradesh": {
     "Bigha": 8712,
-    "Biswa": 436,
+    "Biswa": 435.6,
     "Bishwa": 45,
     "Killa": 4840
   },
-  "Jammu and Kashmir": {},
+  "Jammu and Kashmir": {
+    "Kanal": 5445,
+    "Marla": 272.25
+  },
   "Jharkhand": {
-    "Dhur": 68
+    "Dhur": 68,
+    "Decimal": 435.6
   },
   "Karnataka": {
     "Ankanam": 72,
@@ -47,16 +66,29 @@
   "Kerala": {
     "Cent": 435.6
   },
-  "Ladakh": {},
+  "Ladakh": {
+    "Kanal": 5445,
+    "Marla": 272.25
+  },
   "Lakshadweep": {},
   "Madhya Pradesh": {
     "Bigha": 12000,
     "Kattha": 600
   },
+  "Maharashtra": {
+    "Guntha": 1089,
+    "Are": 1076.39
+  },
+  "Manipur": {
+    "Pari": 107639
+  },
   "Meghalaya": {},
   "Mizoram": {},
   "Nagaland": {},
-  "Odisha": {},
+  "Odisha": {
+    "Guntha": 1089,
+    "Decimal": 435.6
+  },
   "Punjab": {
     "Bigha Pucca": 27225,
     "Bigha Kachha": 9075,
@@ -65,7 +97,12 @@
     "Biswansi": 22,
     "Biswa Kachha": 455
   },
-  "Puducherry": {},
+  "Puducherry": {
+    "Cent": 435.6,
+    "Ground": 2400,
+    "Kuzhi": 144,
+    "Kani": 57600
+  },
   "Rajasthan": {
     "Bigha Pucca": 27225,
     "Bigha": 17216,
@@ -76,7 +113,14 @@
   "Sikkim": {},
   "Tamil Nadu": {
     "Cent": 435.6,
-    "Ground": 2400
+    "Ground": 2400,
+    "Kuzhi": 144
+  },
+  "Telangana": {
+    "Ankanam": 72,
+    "Guntha": 1089,
+    "Kuncham": 4356,
+    "Cent": 435.6
   },
   "Tripura": {
     "Dhur": 3.6
@@ -91,14 +135,14 @@
   },
   "Uttarakhand": {
     "Bigha": 8712,
-    "Biswa": 436,
+    "Biswa": 435.6,
     "Bishwa": 45,
     "Killa": 4840
   },
   "West Bengal": {
     "Bigha": 14400,
     "Chatak": 180,
-    "Decimal": 436,
+    "Decimal": 435.6,
     "Kattha": 720
   }
 }
