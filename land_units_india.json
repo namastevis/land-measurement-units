@@ -4,7 +4,9 @@
     "Guntha": 1089,
     "Kuncham": 4356
   },
-  "Arunachal Pradesh": {},
+  "Arunachal Pradesh": {
+    "Bigha": 14400
+  },
   "Assam": {
     "Bigha": 14400,
     "Kattha": 720,
@@ -56,7 +58,8 @@
   },
   "Jharkhand": {
     "Dhur": 68,
-    "Decimal": 435.6
+    "Decimal": 435.6,
+    "Katha": 720
   },
   "Karnataka": {
     "Ankanam": 72,
@@ -70,7 +73,9 @@
     "Kanal": 5445,
     "Marla": 272.25
   },
-  "Lakshadweep": {},
+  "Lakshadweep": {
+    "Cent": 435.6
+  },
   "Madhya Pradesh": {
     "Bigha": 12000,
     "Kattha": 600
@@ -80,7 +85,11 @@
     "Are": 1076.39
   },
   "Manipur": {
-    "Pari": 107639
+    "Pari": 107639,
+    "Lourak": 53820,
+    "Sangam": 26910,
+    "Loukhai": 13455,
+    "Loushal": 6727
   },
   "Meghalaya": {},
   "Mizoram": {},

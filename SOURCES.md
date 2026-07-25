@@ -1,8 +1,12 @@
 # Data Sources & Notes
 
-This file documents where each figure in `land_units_india.json` came from and flags anything that's still uncertain. It also explains why some states/UTs are intentionally left empty rather than filled with guessed numbers.
+This file documents where each figure in `land_units_india.json` came from and flags anything that's still uncertain. It also explains why a few states/UTs are intentionally left empty rather than filled with guessed numbers.
 
 The dataset now covers all 36 states and union territories (28 states + 8 UTs). Six were missing entirely before this update: **Chhattisgarh, Maharashtra, Manipur, Telangana, Andaman & Nicobar Islands, and Dadra & Nagar Haveli and Daman & Diu.**
+
+## How "unverified" works
+
+Rather than leave a gap wherever the data is uncertain, `land_units_india.json` includes the best available figure for anything a source at least suggested — and `unverified_units.json` lists exactly which `State.Unit` entries that applies to. On the site, those entries render as a dashed, lighter bar with an asterisk on the label, and a hover tooltip pointing back here. The goal is to make gaps visibly correctable rather than silently missing or silently authoritative — if you can confirm or correct one of these, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Corrections to existing data
 
@@ -13,7 +17,7 @@ The dataset now covers all 36 states and union territories (28 states + 8 UTs). 
 | Uttarakhand | `Biswa: 436` | `Biswa: 435.6` | Same fix as HP — Uttarakhand shares HP's Bigha/Biswa system. |
 | West Bengal | `Decimal: 436` | `Decimal: 435.6` | A Decimal is defined as 1/100 acre = 435.6 sq ft exactly. [Bajaj Finserv – Land measurement in West Bengal](https://www.bajajfinserv.in/land-measurement-in-west-bengal)
 
-## Newly filled states/UTs
+## Newly filled states/UTs — sourced, not flagged unverified
 
 | State/UT | Units added | Source |
 |---|---|---|
@@ -25,29 +29,35 @@ The dataset now covers all 36 states and union territories (28 states + 8 UTs). 
 | Jammu and Kashmir | Kanal 5445, Marla 272.25 | [Bhumi Calculator – J&K](https://bhumicalculator.com/states/jammu-kashmir/), [Wikipedia – Marla](https://en.wikipedia.org/wiki/Marla_(unit)) |
 | Ladakh | Kanal 5445, Marla 272.25 | Same Kanal/Marla system as J&K, still in use post-2019 UT split. [areaconvert.com – Kanal/Marla in J&K and Ladakh](https://www.areaconvert.com/2019/08/kanaal-to-square-feet-in-jammu-kashmir.html) |
 | Maharashtra | Guntha 1089, Are 1076.39 | [Bhumicalculator – Maharashtra](https://bhumicalculator.com/states/maharashtra/) |
-| Manipur | Pari ≈107639 | Historical unit, **approximate and effectively obsolete since mid-20th-century metrication**. Wikipedia describes 1 Pari as "approximately 1 hectare" (not exact), so the figure carries more uncertainty than everything else in the dataset. Included as a cultural/historical reference rather than a precise modern conversion. Subunits (Lourak, Sangam, Loukhai, Loushal, Tong) exist but conflicting sources gave inconsistent values, so they were left out rather than guessed. [Wikipedia – Pari (unit)](https://en.wikipedia.org/wiki/Pari_(unit)), [Wikipedia – Sana lamjel](https://en.wikipedia.org/wiki/Sana_lamjel) |
 | Odisha | Guntha 1089, Decimal 435.6 | [Bhumi Calculator – Odisha](https://bhumicalculator.com/states/odisha/) |
 | Puducherry | Cent 435.6, Ground 2400, Kuzhi 144, Kani 57600 | Kani = 400 Kuzhi. [Bhumi Calculator – Puducherry](https://bhumicalculator.com/states/puducherry/) |
 | Tamil Nadu | added Kuzhi 144 | [Verified.RealEstate – TN land measurement units](https://community.verified.realestate/article/land-measurement-units-in-tamil-nadu-ground-cent-acre-hectare-kuzhi-ma-veli-and-official-record-conversions-explained/) |
 | Telangana | Ankanam 72, Guntha 1089, Kuncham 4356, Cent 435.6 | Same base units as Andhra Pradesh (Telangana was part of AP until 2014). Note: one source quoted Kuncham as "484 sq ft," but cross-checking showed that figure is actually 484 *Gajam* (square yards) — 484 × 9 = 4,356 sq ft, matching AP's existing figure. [areaconvert.com – Kuncham in Andhra Pradesh](https://www.areaconvert.com/2019/11/kuncham-to-square-feet-kuncham-to.html) |
-| Jharkhand | added Decimal 435.6 | Standard eastern-India Decimal, in addition to the existing Dhur figure. Katha was deliberately not added — sources give wildly different values across Jharkhand districts (720 to 2,535 sq ft), so no single number could be cited reliably. [ranchiportal.com – Jharkhand land units](https://ranchiportal.com/jharkhand-land-unit-converter-kattha-to-sqft/) |
+| Jharkhand | added Decimal 435.6 | Standard eastern-India Decimal, in addition to the existing Dhur figure. |
+
+## Flagged `unverified` — best estimate, not independently confirmed
+
+These entries have a real source behind them, but not one strong or consistent enough to present as settled fact. They're included in `land_units_india.json` (so the gap doesn't just look empty) but listed in `unverified_units.json`, which renders them as dashed bars on the site.
+
+| State/UT | Unit(s) | Value(s) | Why it's flagged |
+|---|---|---|---|
+| Arunachal Pradesh | Bigha | 14400 | Used informally in some border areas, borrowed from Assam usage — not an Arunachal-specific or officially standardized unit. |
+| Assam | Lecha | 144 | Pre-existing figure; the related "Lessa" unit has a Wikipedia note saying its conversion "is still debated to this day." Kept the original value but flagged it given that ambiguity. |
+| Jharkhand | Katha | 720 | Sources give wildly different values across Jharkhand districts (720–2,535 sq ft). 720 is the commonly-cited Ranchi figure, used as a representative estimate — not a statewide standard. [ranchiportal.com – Jharkhand land units](https://ranchiportal.com/jharkhand-land-unit-converter-kattha-to-sqft/) |
+| Lakshadweep | Cent | 435.6 | Administratively close to Kerala, which uses Cent, but no authoritative source confirms Lakshadweep itself uses it. |
+| Manipur | Pari, Lourak, Sangam, Loukhai, Loushal | 107639, 53820, 26910, 13455, 6727 | Historical unit system, effectively obsolete since mid-20th-century metrication. Wikipedia describes 1 Pari as only "approximately" 1 hectare, and other sources gave inconsistent values for the subunits — the figures above are derived proportionally from the Pari≈hectare approximation (Pari ÷ 2, ÷ 4, ÷ 8, ÷ 16) rather than independently confirmed. [Wikipedia – Pari (unit)](https://en.wikipedia.org/wiki/Pari_(unit)), [Wikipedia – Sana lamjel](https://en.wikipedia.org/wiki/Sana_lamjel) |
+| Rajasthan | Biswa, Biswa Pucca | 960, 1365 | Pre-existing figures. Rajasthan's Bigha is notoriously inconsistent between districts (Kachha vs Pucca variants differ by region), so these are plausible but not verified against one authoritative source. |
+| Tripura | Dhur | 3.6 | Pre-existing figure, could not be independently confirmed. 3.6 sq ft is unusually small for a Dhur (compare Bihar's 68 sq ft). |
+| Himachal Pradesh / Uttarakhand | Bishwa | 45 | Pre-existing figures; possibly a smaller local subunit distinct from "Biswa," but no source confirms the exact value. |
 
 ## Left empty on purpose
 
-These states/UTs were researched but no reliably documented, distinct traditional unit could be found — official land records for all of them use only metric units (Acre/Hectare/Are/Square Metre). Rather than invent numbers, they're left as empty entries so the gap is visible and someone with local knowledge can fill it in:
+For these, no traditional numeric unit appears to exist at all — not just "unconfirmed," but genuinely not applicable, since official land records use only metric units (Acre/Hectare/Are/Square Metre) and, for the Northeast especially, land has historically been held under customary/community tenure rather than measured this way. Forcing a number in here would misrepresent the land tenure system itself, so these stay empty:
 
-- **Arunachal Pradesh** — Bigha (14,400 sq ft) is used informally in some border areas, borrowed from Assam, but is not an Arunachal-specific or officially standardized unit.
-- **Meghalaya, Mizoram, Nagaland** — land in much of the Northeast is held under customary/community (clan or village) tenure rather than measured in standardized area units historically.
+- **Meghalaya, Mizoram, Nagaland** — customary/community (clan or village) land tenure, not standardized area units.
 - **Sikkim** — no distinct traditional unit found; land records use Acre/Hectare.
-- **Lakshadweep** — administratively close to Kerala, may informally use Cent, but this isn't confirmed by an authoritative source.
 - **Andaman and Nicobar Islands** — official records (Form F) use Acre/Hectare/Are/Square Metre only.
 - **Dadra and Nagar Haveli and Daman and Diu** — no distinct unit found; small UT, likely follows neighboring Gujarat/Maharashtra informally but nothing confirmed.
-
-## Still worth double-checking
-
-- **Rajasthan** (`Biswa: 960`, `Biswa Pucca: 1365`) — Rajasthan's Bigha is famously inconsistent between districts (Kachha vs Pucca variants differ by region), so these figures are plausible but not verified against a single authoritative source the way most other entries are.
-- **Tripura** (`Dhur: 3.6`) — this figure was already in the dataset before this update and could not be independently confirmed. 3.6 sq ft is unusually small for a Dhur (compare Bihar's 68 sq ft); worth checking against a Tripura-specific land revenue source if anyone has access to one.
-- **Himachal Pradesh / Uttarakhand** (`Bishwa: 45`) — also pre-existing and unverified; possibly a smaller local subunit distinct from "Biswa," but no source was found confirming the exact value.
 
 ## General sources used throughout
 

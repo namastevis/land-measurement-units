@@ -20,7 +20,8 @@ header {
 
 .header-content {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   width: 85vw;
   max-width: 980px;
   margin: 0 auto;
@@ -32,6 +33,22 @@ header {
   font-weight: bold;
   margin-left: 0;
   letter-spacing: 0.02em;
+}
+
+.header-nav-link {
+  color: #f0f0f0;
+  font-size: 0.95em;
+  text-decoration: none;
+  border: 1px solid #555;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: color 0.18s, border-color 0.18s;
+}
+
+.header-nav-link:hover,
+.header-nav-link:focus {
+  color: #F4BA02;
+  border-color: #F4BA02;
 }
 
 #units,
@@ -99,6 +116,13 @@ header {
   opacity: 0.85;
 }
 
+.bar.unverified {
+  opacity: 0.55;
+  stroke: #555;
+  stroke-width: 1px;
+  stroke-dasharray: 3, 2;
+}
+
 .bar-label {
   font-size: 0.72em;
   font-family: inherit;
@@ -112,6 +136,20 @@ header {
   fill: #bbb;
   font-style: italic;
   text-anchor: start;
+}
+
+.bar-label.unverified {
+  font-style: italic;
+}
+
+.data-legend {
+  font-size: 0.8em;
+  color: #555;
+  margin: 2px 0 12px 0;
+}
+
+.data-legend a {
+  color: #184490;
 }
 
 .footer-space {
@@ -192,6 +230,17 @@ header {
   .heading {
     font-size: 1.12rem;
   }
+  .header-content {
+    flex-wrap: wrap;
+    row-gap: 8px;
+  }
+  .header-nav-link {
+    font-size: 0.8em;
+    padding: 4px 8px;
+  }
+  .intro-line {
+    font-size: 0.85em;
+  }
   .unit-btn {
     min-width: 34px;
     font-size: 0.77em;
@@ -228,6 +277,13 @@ header {
     margin-right: 2px;
     flex-shrink: 0;
   }
+}
+
+.intro-line {
+  font-size: 0.98em;
+  color: #3a3a3a;
+  margin: 0 0 14px 0;
+  line-height: 1.5;
 }
 
 .subheading-info {

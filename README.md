@@ -10,9 +10,10 @@ India's land measurement traditions encompass dozens of unique units whose meani
 
 **Key Features:**
 
-- Interactive web dashboard to explore units by state.
+- Interactive web dashboard covering all 28 states and 8 union territories.
 - Consistent conversion: all units represented in square feet.
 - Customisable visualisation: select and compare up to five units at a time.
+- Unverified/low-confidence figures are visually flagged rather than presented as fact.
 - Mobile-friendly and accessible design.
 - Community-edited: help us collect missing or hyper-local units!
 
@@ -21,8 +22,13 @@ India's land measurement traditions encompass dozens of unique units whose meani
 ## 📊 Data Sources and Community Contributions
 
 - The database is a collaborative, ongoing effort. If your state, area, or unit isn't represented, or you spot an error, please help us improve!
-- **To contribute:** [Drop us a line](mailto:namastevis@amitjena.com) with authoritative details, historical context, or data sources.
+- **To contribute:** open a pull request, use the Google Form linked on the site, or [drop us a line](mailto:namastevis@amitjena.com) with authoritative details, historical context, or data sources. See [CONTRIBUTING.md](CONTRIBUTING.md) for the details.
+- Full citations for every figure, plus notes on what's still uncertain, are in [SOURCES.md](SOURCES.md).
 - All data, code, and historical references are available in this GitHub repository for transparency and further research.
+
+### Unverified entries
+
+Some entries in `land_units_india.json` are flagged in `unverified_units.json` — these are the best estimate we could find, but they haven't been confirmed against an official or primary source (a few, like Manipur's historical units, are disputed even across sources). On the site, these render as dashed, lighter bars marked with an asterisk. See [SOURCES.md](SOURCES.md) for exactly which entries and why.
 
 ---
 

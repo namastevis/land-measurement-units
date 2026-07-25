@@ -11,42 +11,28 @@
     <header>
       <div class="header-content">
         <div class="heading">Indian Land Measurement Units</div>
+        <a href="about.html" class="header-nav-link">About &amp; Contribute</a>
       </div>
     </header>
 
     <main id="page-content">
-      <div class="subheading-info">
-        <p>
-          India’s heritage of land measurement embraces dozens of unique units,
-          each woven into regional history and daily life. The size or value of
-          a land unit can vary widely - not just from one state to another, but
-          sometimes even within districts. Our database is a collaborative
-          work-in-progress: we may not yet cover every local unit for every
-          state, but you can help.
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSdTDm40RZVz5jcVklWxUwlFA6exhcy7FHiMXZAqr51KONY6Zw/viewform?usp=dialog"
-            target="_blank"
-            class="subheading-link"
-            tabindex="0"
-            >Fill this google form</a
-          >, your contribution will help enrich this public resource, which is
-          open to all on
-          <a
-            href="https://github.com/namastevis/land-measurement-units"
-            class="subheading-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            >GitHub</a
-          >. Every value in this visualisation is expressed in square feet for
-          clarity and easy comparison.
-          <br />
-          - Prof Yugank Goyal and Prof Amit Jena, FLAME University, Pune.
-        </p>
-        <hr />
-      </div>
+      <p class="intro-line">
+        Select up to five units to compare across states — every value is
+        converted to square feet.
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdTDm40RZVz5jcVklWxUwlFA6exhcy7FHiMXZAqr51KONY6Zw/viewform?usp=dialog"
+          target="_blank"
+          class="subheading-link"
+          >Know a unit we're missing? Add it here.</a
+        >
+      </p>
 
       <div id="unit-alert" aria-live="polite"></div>
       <div class="unit-btn-row" id="units"></div>
+      <p class="data-legend">
+        Dashed, lighter bars marked with * are unverified best estimates —
+        see <a href="about.html">About</a> for details.
+      </p>
       <div class="svg-container">
         <svg id="chart" class="chart"></svg>
       </div>

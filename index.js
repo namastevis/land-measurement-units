@@ -9,7 +9,11 @@ function formatIndian(num) {
   return n + afterPoint;
 }
 
-d3.json("land_units_india.json").then((landData) => {
+Promise.all([
+  d3.json("land_units_india.json"),
+  d3.json("unverified_units.json")
+]).then(([landData, unverifiedData]) => {
+  const unverifiedSet = new Set((unverifiedData && unverifiedData.unverified) || []);
   const states = Object.keys(landData).sort();
 
   const allUnitsSet = new Set();
@@ -92,6 +96,7 @@ d3.json("land_units_india.json").then((landData) => {
         unit,
         value: landData[state][unit] !== undefined ? landData[state][unit] : null,
         present: landData[state][unit] !== undefined,
+        unverified: unverifiedSet.has(`${state}.${unit}`),
       }));
       return { state, values: vals };
     });
@@ -144,12 +149,15 @@ d3.json("land_units_india.json").then((landData) => {
       )
       .enter()
       .append("rect")
-      .attr("class", "bar")
+      .attr("class", d => "bar" + (d.present && d.unverified ? " unverified" : ""))
       .attr("x", d => margin.left + d.idx * (widthPerBar + barGap))
       .attr("y", 0)
       .attr("width", d => d.value == null ? 0 : xScale(d.value))
       .attr("height", y.bandwidth())
-      .attr("fill", d => color(d.unit));
+      .attr("fill", d => color(d.unit))
+      .filter(d => d.present && d.unverified)
+      .append("title")
+      .text("Unverified: best-available estimate, not independently confirmed. See SOURCES.md for details.");
 
     rowGroup
       .selectAll(".bar-label")
@@ -162,7 +170,11 @@ d3.json("land_units_india.json").then((landData) => {
       )
       .enter()
       .append("text")
-      .attr("class", v => "bar-label" + (v.present ? "" : " missing"))
+      .attr("class", v =>
+        "bar-label" +
+        (v.present ? "" : " missing") +
+        (v.present && v.unverified ? " unverified" : "")
+      )
       .attr("x", v =>
         margin.left + v.idx * (widthPerBar + barGap) +
         (v.value && v.value > 0
@@ -174,10 +186,13 @@ d3.json("land_units_india.json").then((landData) => {
       .style("font-size", "0.72em")
       .text(v =>
         v.present && v.value !== null && v.value !== 0
-          ? formatIndian(v.value)
+          ? formatIndian(v.value) + (v.unverified ? " *" : "")
           : ""
       )
-      .attr("fill", v => (v.present ? "white" : "#bbb"));
+      .attr("fill", v => (v.present ? "white" : "#bbb"))
+      .filter(v => v.unverified)
+      .append("title")
+      .text("Unverified: best-available estimate, not independently confirmed. See SOURCES.md for details.");
   }
 
   function handleResize() {

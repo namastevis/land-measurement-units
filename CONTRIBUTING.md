@@ -10,9 +10,12 @@ Thanks for helping make this dataset more accurate and complete. Land units in I
 
 ## What's most needed right now
 
-Several states/UTs currently have no data because no reliably documented distinct traditional unit was found: Meghalaya, Mizoram, Nagaland, Sikkim, Lakshadweep, Andaman & Nicobar Islands, and Dadra & Nagar Haveli and Daman & Diu. If you have local knowledge of land units (or can confirm there genuinely isn't a distinct one) for any of these, that's the highest-value contribution.
+Two kinds of gaps, in order of priority:
 
-A few existing figures are also flagged as uncertain in `SOURCES.md` (Tripura's Dhur, Rajasthan's Biswa figures, HP/Uttarakhand's Bishwa) — corrections with a source are welcome.
+1. **Confirming `unverified` entries.** Everything listed in `unverified_units.json` (e.g. Manipur's historical units, Jharkhand's Katha, Lakshadweep's Cent) is a best estimate, not a confirmed figure — a source-backed correction here removes the flag and is the highest-value contribution.
+2. **Filling genuine gaps.** Meghalaya, Mizoram, Nagaland, Sikkim, Andaman & Nicobar Islands, and Dadra & Nagar Haveli and Daman & Diu have no entry at all because no traditional unit could be confirmed. If you have local knowledge (or can confirm there genuinely isn't a distinct one), that's very welcome too.
+
+See `SOURCES.md` for the full reasoning behind every current entry, sourced or flagged.
 
 ## Data format
 
@@ -27,6 +30,8 @@ A few existing figures are also flagged as uncertain in `SOURCES.md` (Tripura's 
 ```
 
 Keep unit names as they're locally known (e.g. "Bigha Pucca" vs "Bigha Kachha" where a state has both) rather than merging distinct units into one.
+
+`unverified_units.json` is a flat list of `"State.Unit"` strings — anything in there renders as a dashed, flagged bar on the site instead of a normal one. If you're confirming a figure with a solid source, remove its entry from this list as part of your PR (and update the citation in `SOURCES.md`). If you're adding a new figure you're not fully confident in, add both the value to `land_units_india.json` and its key to this list, plus a note in `SOURCES.md` explaining why.
 
 ## License
 
