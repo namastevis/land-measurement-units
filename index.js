@@ -9,6 +9,14 @@ function formatIndian(num) {
   return n + afterPoint;
 }
 
+// Full names are kept everywhere for data lookups and accessibility;
+// only the on-chart label is shortened, since a few UT names are far
+// longer than the state-label column can ever comfortably hold.
+const stateDisplayNames = {
+  "Andaman and Nicobar Islands": "Andaman & Nicobar",
+  "Dadra and Nagar Haveli and Daman and Diu": "DNH & Daman-Diu",
+};
+
 Promise.all([
   d3.json("land_units_india.json"),
   d3.json("unverified_units.json")
@@ -24,8 +32,14 @@ Promise.all([
   }
   const allUnits = Array.from(allUnitsSet).sort();
 
+  // Mobile-first: start at 2 units on small phones and step up as there's
+  // room, in step with the CSS breakpoints (550 / 850) rather than one
+  // hard jump that leaves mid-size screens over- or under-restricted.
   function getMaxUnits() {
-    return window.innerWidth >= 700 ? 5 : 2;
+    const w = window.innerWidth;
+    if (w < 550) return 2;
+    if (w < 850) return 3;
+    return 5;
   }
 
   let selectedUnits = ["Bigha"];
@@ -70,21 +84,26 @@ Promise.all([
   }
 
   function updateChart() {
-    const stateLabelWidth = 136; // increased for more space
-    const spacer = 32;  // more gap
     const container = document.querySelector('.svg-container') || document.body;
-    const maxBars = 5;
     const chartW = Math.max(container.clientWidth || 780, 320);
+
+    // Label column and gaps shrink in steps as the screen narrows, so a
+    // phone doesn't spend half its width on text before a single bar starts.
+    const stateLabelWidth = chartW < 420 ? 92 : chartW < 700 ? 112 : 136;
+    const spacer = chartW < 420 ? 10 : chartW < 700 ? 20 : 32;
+    const barGap = chartW < 420 ? 4 : 6;
     const margin = {
       top: 10,
-      right: 20,
+      right: 16,
       bottom: 25,
       left: stateLabelWidth + spacer
     };
     const barAreaWidth = chartW - margin.left - margin.right;
-    const widthPerBar = Math.max(60, (barAreaWidth - (maxBars - 1) * 6) / maxBars);
+    // Size bars off how many are actually shown, not a fixed count — a phone
+    // showing 2 units should get 2 wide bars, not 2 slivers cut for 5.
+    const barCount = Math.max(1, selectedUnits.length);
+    const widthPerBar = Math.max(46, (barAreaWidth - (barCount - 1) * barGap) / barCount);
     const barHeight = 16;
-    const barGap = 6;
     const svg = d3.select("#chart")
       .attr("width", chartW)
       .attr("height", states.length * barHeight + margin.top + margin.bottom);
@@ -98,7 +117,11 @@ Promise.all([
         present: landData[state][unit] !== undefined,
         unverified: unverifiedSet.has(`${state}.${unit}`),
       }));
-      return { state, values: vals };
+      return {
+        state,
+        values: vals,
+        isEmptyState: Object.keys(landData[state]).length === 0,
+      };
     });
 
     let globalMax = 0;
@@ -120,15 +143,21 @@ Promise.all([
       .range([margin.top, svg.attr("height") - margin.bottom])
       .padding(0.15);
 
-    svg.selectAll(".state-label")
+    const stateLabelSel = svg.selectAll(".state-label")
       .data(data)
       .enter()
       .append("text")
-      .attr("class", "state-label")
+      .attr("class", d => "state-label" + (d.isEmptyState ? " empty-state" : ""))
       .attr("x", stateLabelWidth + 16)
       .attr("y", d => y(d.state) + y.bandwidth() / 2)
       .attr("alignment-baseline", "middle")
       .style("font-size", "0.90em")
+      .text(d => stateDisplayNames[d.state] || d.state);
+
+    // Full name as a native tooltip wherever it's been shortened for space.
+    stateLabelSel
+      .filter(d => !!stateDisplayNames[d.state])
+      .append("title")
       .text(d => d.state);
 
     const rowGroup = svg.selectAll(".state-row")
@@ -159,38 +188,53 @@ Promise.all([
       .append("title")
       .text("Unverified: best-available estimate, not independently confirmed. See SOURCES.md for details.");
 
+    // A bar can be a few pixels wide when its unit's value is tiny next to
+    // another selected unit's (e.g. Tripura's 3.6 sq ft Dhur next to
+    // Manipur's ~107,639 sq ft Pari on the same shared scale). White text
+    // anchored inside such a sliver is effectively invisible against the
+    // page background, so labels that don't fit fall back to dark text
+    // placed just outside the bar instead — same idea as the "missing" case.
+    const labelData = data.flatMap((d) =>
+      d.values.map((v, i) => {
+        const barX = margin.left + i * (widthPerBar + barGap);
+        const hasValue = v.present && v.value !== null && v.value !== 0;
+        if (!hasValue) {
+          return {
+            state: d.state, idx: i, text: "", x: barX + 4,
+            anchor: "start", cls: "bar-label missing", fill: "#bbb", unverified: false,
+          };
+        }
+        const barPx = xScale(v.value);
+        const text = formatIndian(v.value) + (v.unverified ? " *" : "");
+        const estTextWidth = text.length * 6.2 + 8;
+        const fitsInside = barPx >= estTextWidth + 10;
+        const unverifiedCls = v.unverified ? " unverified" : "";
+        return fitsInside
+          ? {
+              state: d.state, idx: i, text, x: barX + barPx - 6,
+              anchor: "end", cls: "bar-label" + unverifiedCls, fill: "white", unverified: v.unverified,
+            }
+          : {
+              state: d.state, idx: i, text, x: barX + barPx + 6,
+              anchor: "start", cls: "bar-label outside" + unverifiedCls, fill: "#222", unverified: v.unverified,
+            };
+      })
+    );
+
     rowGroup
       .selectAll(".bar-label")
-      .data(d =>
-        d.values.map((v, i) => ({
-          ...v,
-          idx: i,
-          state: d.state,
-        }))
-      )
+      .data((d) => labelData.filter((l) => l.state === d.state))
       .enter()
       .append("text")
-      .attr("class", v =>
-        "bar-label" +
-        (v.present ? "" : " missing") +
-        (v.present && v.unverified ? " unverified" : "")
-      )
-      .attr("x", v =>
-        margin.left + v.idx * (widthPerBar + barGap) +
-        (v.value && v.value > 0
-          ? xScale(v.value) - 6
-          : 4)
-      )
+      .attr("class", (l) => l.cls)
+      .attr("x", (l) => l.x)
       .attr("y", y.bandwidth() / 2)
+      .attr("text-anchor", (l) => l.anchor)
       .attr("alignment-baseline", "middle")
       .style("font-size", "0.72em")
-      .text(v =>
-        v.present && v.value !== null && v.value !== 0
-          ? formatIndian(v.value) + (v.unverified ? " *" : "")
-          : ""
-      )
-      .attr("fill", v => (v.present ? "white" : "#bbb"))
-      .filter(v => v.unverified)
+      .text((l) => l.text)
+      .attr("fill", (l) => l.fill)
+      .filter((l) => l.unverified)
       .append("title")
       .text("Unverified: best-available estimate, not independently confirmed. See SOURCES.md for details.");
   }

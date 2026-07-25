@@ -63,7 +63,7 @@ header {
 .unit-btn {
   background-color: #8DADAF;
   border: 1px solid #888;
-  padding: 2.2px 7.5px;
+  padding: 7px 10px;
   margin: 0;
   cursor: pointer;
   border-radius: 3px;
@@ -72,6 +72,7 @@ header {
   font-size: 0.88em;
   flex: 0 0 auto;
   min-width: 48px;
+  min-height: 32px;
   line-height: 1.05;
 }
 
@@ -95,7 +96,7 @@ header {
 
 .chart {
   width: 100%;
-  min-width: 370px;
+  min-width: 320px;
   max-width: 980px;
   height: auto;
   margin-top: 18px;
@@ -110,6 +111,14 @@ header {
   alignment-baseline: middle;
   dominant-baseline: middle;
   letter-spacing: 0.01em;
+}
+
+/* States with no data for any unit yet (not just the one currently
+   selected) are muted so they read differently from a state that simply
+   lacks this particular unit. */
+.state-label.empty-state {
+  fill: #9a9a9a;
+  font-style: italic;
 }
 
 .bar {
@@ -135,6 +144,15 @@ header {
 .bar-label.missing {
   fill: #bbb;
   font-style: italic;
+  text-anchor: start;
+}
+
+/* Present, but the bar itself is too narrow to hold the number in white
+   (happens when very different-sized units are compared side by side).
+   Falls back to dark text just outside the bar instead of invisible
+   white-on-white text. */
+.bar-label.outside {
+  fill: #222;
   text-anchor: start;
 }
 
@@ -242,9 +260,10 @@ header {
     font-size: 0.85em;
   }
   .unit-btn {
-    min-width: 34px;
-    font-size: 0.77em;
-    padding: 1.6px 3.2px;
+    min-width: 40px;
+    min-height: 34px;
+    font-size: 0.8em;
+    padding: 7px 8px;
   }
   #unit-alert {
     font-size: 0.83em;
