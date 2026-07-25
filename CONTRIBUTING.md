@@ -33,6 +33,8 @@ Keep unit names as they're locally known (e.g. "Bigha Pucca" vs "Bigha Kachha" w
 
 `unverified_units.json` is a flat list of `"State.Unit"` strings — anything in there renders as a dashed, flagged bar on the site instead of a normal one. If you're confirming a figure with a solid source, remove its entry from this list as part of your PR (and update the citation in `SOURCES.md`). If you're adding a new figure you're not fully confident in, add both the value to `land_units_india.json` and its key to this list, plus a note in `SOURCES.md` explaining why.
 
+`state_regions.json` maps each state/UT name to one of the seven regions used for the chart's region-grouped view (see SOURCES.md for the methodology). If you add a new state/UT to `land_units_india.json`, add it here too, or it'll show up under an "Other" header on the site rather than its proper zone.
+
 ## License
 
 By contributing, you agree your contribution is released under this project's MIT License.

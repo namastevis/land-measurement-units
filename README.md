@@ -13,6 +13,7 @@ India's land measurement traditions encompass dozens of unique units whose meani
 - Interactive web dashboard covering all 28 states and 8 union territories.
 - Consistent conversion: all units represented in square feet.
 - Customisable visualisation: select and compare up to five units at a time.
+- States are grouped by region by default (toggle to a plain A–Z list), so units that historically cluster geographically — the Bigha-Biswa belt, the Cent-Ground belt, the Kanal-Marla belt — are easier to spot side by side.
 - Unverified/low-confidence figures are visually flagged rather than presented as fact.
 - Mobile-friendly and accessible design.
 - Community-edited: help us collect missing or hyper-local units!

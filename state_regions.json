@@ -1,0 +1,44 @@
+{
+  "Chandigarh": "Northern Zone",
+  "Delhi": "Northern Zone",
+  "Haryana": "Northern Zone",
+  "Himachal Pradesh": "Northern Zone",
+  "Jammu and Kashmir": "Northern Zone",
+  "Ladakh": "Northern Zone",
+  "Punjab": "Northern Zone",
+  "Rajasthan": "Northern Zone",
+
+  "Chhattisgarh": "Central Zone",
+  "Madhya Pradesh": "Central Zone",
+  "Uttar Pradesh": "Central Zone",
+  "Uttarakhand": "Central Zone",
+
+  "Bihar": "Eastern Zone",
+  "Jharkhand": "Eastern Zone",
+  "Odisha": "Eastern Zone",
+  "West Bengal": "Eastern Zone",
+
+  "Arunachal Pradesh": "North-Eastern Zone",
+  "Assam": "North-Eastern Zone",
+  "Manipur": "North-Eastern Zone",
+  "Meghalaya": "North-Eastern Zone",
+  "Mizoram": "North-Eastern Zone",
+  "Nagaland": "North-Eastern Zone",
+  "Sikkim": "North-Eastern Zone",
+  "Tripura": "North-Eastern Zone",
+
+  "Dadra and Nagar Haveli and Daman and Diu": "Western Zone",
+  "Goa": "Western Zone",
+  "Gujarat": "Western Zone",
+  "Maharashtra": "Western Zone",
+
+  "Andhra Pradesh": "Southern Zone",
+  "Karnataka": "Southern Zone",
+  "Kerala": "Southern Zone",
+  "Puducherry": "Southern Zone",
+  "Tamil Nadu": "Southern Zone",
+  "Telangana": "Southern Zone",
+
+  "Andaman and Nicobar Islands": "Island Territories",
+  "Lakshadweep": "Island Territories"
+}

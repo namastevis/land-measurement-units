@@ -29,10 +29,19 @@
 
       <div id="unit-alert" aria-live="polite"></div>
       <div class="unit-btn-row" id="units"></div>
-      <p class="data-legend">
-        Dashed, lighter bars marked with * are unverified best estimates —
-        see <a href="about.html">About</a> for details.
-      </p>
+      <div class="chart-controls-row">
+        <p class="data-legend">
+          Dashed, lighter bars marked with * are unverified best estimates —
+          see <a href="about.html">About</a> for details.
+        </p>
+        <button
+          id="groupToggleBtn"
+          class="group-toggle-btn"
+          type="button"
+          aria-pressed="true"
+          title="Switch between grouping states by region and a plain A–Z list"
+        >Grouped by region</button>
+      </div>
       <div class="svg-container">
         <svg id="chart" class="chart"></svg>
       </div>

@@ -17,12 +17,28 @@ const stateDisplayNames = {
   "Dadra and Nagar Haveli and Daman and Diu": "DNH & Daman-Diu",
 };
 
+// Display order for region grouping — roughly a geographic sweep, with the
+// two island UTs (which sit outside the mainland Zonal Council structure)
+// called out on their own rather than folded into a mainland zone.
+const REGION_ORDER = [
+  "Northern Zone",
+  "Central Zone",
+  "Eastern Zone",
+  "North-Eastern Zone",
+  "Western Zone",
+  "Southern Zone",
+  "Island Territories",
+];
+
 Promise.all([
   d3.json("land_units_india.json"),
-  d3.json("unverified_units.json")
-]).then(([landData, unverifiedData]) => {
+  d3.json("unverified_units.json"),
+  d3.json("state_regions.json"),
+]).then(([landData, unverifiedData, regionData]) => {
   const unverifiedSet = new Set((unverifiedData && unverifiedData.unverified) || []);
+  const regionOf = regionData || {};
   const states = Object.keys(landData).sort();
+  let groupByRegion = true;
 
   const allUnitsSet = new Set();
   for (const state of states) {
@@ -47,6 +63,20 @@ Promise.all([
 
   const unitsDiv = d3.select("#units");
   const alertDiv = document.getElementById('unit-alert');
+
+  const groupToggleBtn = document.getElementById('groupToggleBtn');
+  function renderGroupToggle() {
+    if (!groupToggleBtn) return;
+    groupToggleBtn.textContent = groupByRegion ? "Grouped by region" : "A–Z";
+    groupToggleBtn.setAttribute('aria-pressed', String(groupByRegion));
+  }
+  if (groupToggleBtn) {
+    groupToggleBtn.addEventListener('click', () => {
+      groupByRegion = !groupByRegion;
+      renderGroupToggle();
+      updateChart();
+    });
+  }
 
   function renderUnitButtons() {
     unitsDiv.selectAll("button")
@@ -103,10 +133,56 @@ Promise.all([
     // showing 2 units should get 2 wide bars, not 2 slivers cut for 5.
     const barCount = Math.max(1, selectedUnits.length);
     const widthPerBar = Math.max(46, (barAreaWidth - (barCount - 1) * barGap) / barCount);
-    const barHeight = 16;
+
+    // Build the row order: either 36 states A-Z, or the same 36 states
+    // bucketed into region headers (Northern Zone, Southern Zone, etc.)
+    // with each bucket sorted A-Z internally. Rows have two different
+    // heights (a header is shorter than a bar row), so positions are laid
+    // out by hand below rather than with a single d3.scaleBand.
+    const STATE_ROW_H = 16;
+    const BAR_H = 13;
+    const HEADER_ROW_H = 24;
+
+    let rows;
+    if (groupByRegion) {
+      rows = [];
+      REGION_ORDER.forEach((region) => {
+        const inRegion = states.filter((s) => regionOf[s] === region).sort();
+        if (inRegion.length === 0) return;
+        rows.push({ type: "header", label: region });
+        inRegion.forEach((state) => rows.push({ type: "state", state }));
+      });
+      // Anything not mapped to a known region (shouldn't normally happen)
+      // still gets shown, grouped at the end, rather than silently dropped.
+      const unmapped = states.filter((s) => !regionOf[s]).sort();
+      if (unmapped.length) {
+        rows.push({ type: "header", label: "Other" });
+        unmapped.forEach((state) => rows.push({ type: "state", state }));
+      }
+    } else {
+      rows = states.slice().sort().map((state) => ({ type: "state", state }));
+    }
+
+    let cursorY = margin.top;
+    const positioned = rows.map((row) => {
+      if (row.type === "header") {
+        const pos = { ...row, y: cursorY, h: HEADER_ROW_H };
+        cursorY += HEADER_ROW_H;
+        return pos;
+      }
+      const barY = cursorY + (STATE_ROW_H - BAR_H) / 2;
+      const pos = { ...row, y: cursorY, h: STATE_ROW_H, barY, barH: BAR_H };
+      cursorY += STATE_ROW_H;
+      return pos;
+    });
+    const chartHeight = cursorY + margin.bottom;
+    const stateRowByName = new Map(
+      positioned.filter((r) => r.type === "state").map((r) => [r.state, r])
+    );
+
     const svg = d3.select("#chart")
       .attr("width", chartW)
-      .attr("height", states.length * barHeight + margin.top + margin.bottom);
+      .attr("height", chartHeight);
 
     svg.selectAll("*").remove();
 
@@ -138,10 +214,27 @@ Promise.all([
       .domain([0, globalMax || 1])
       .range([0, widthPerBar]);
 
-    const y = d3.scaleBand()
-      .domain(data.map(d => d.state))
-      .range([margin.top, svg.attr("height") - margin.bottom])
-      .padding(0.15);
+    // Region header rows: a subtle full-width band plus a bold label.
+    const headerRows = positioned.filter((r) => r.type === "header");
+    svg.selectAll(".region-header-bg")
+      .data(headerRows)
+      .enter()
+      .append("rect")
+      .attr("class", "region-header-bg")
+      .attr("x", 0)
+      .attr("y", (r) => r.y)
+      .attr("width", chartW)
+      .attr("height", r => r.h);
+
+    svg.selectAll(".region-header-label")
+      .data(headerRows)
+      .enter()
+      .append("text")
+      .attr("class", "region-header-label")
+      .attr("x", 6)
+      .attr("y", (r) => r.y + r.h / 2)
+      .attr("alignment-baseline", "middle")
+      .text((r) => r.label);
 
     const stateLabelSel = svg.selectAll(".state-label")
       .data(data)
@@ -149,7 +242,7 @@ Promise.all([
       .append("text")
       .attr("class", d => "state-label" + (d.isEmptyState ? " empty-state" : ""))
       .attr("x", stateLabelWidth + 16)
-      .attr("y", d => y(d.state) + y.bandwidth() / 2)
+      .attr("y", d => stateRowByName.get(d.state).barY + stateRowByName.get(d.state).barH / 2)
       .attr("alignment-baseline", "middle")
       .style("font-size", "0.90em")
       .text(d => stateDisplayNames[d.state] || d.state);
@@ -165,7 +258,7 @@ Promise.all([
       .enter()
       .append("g")
       .attr("class", "state-row")
-      .attr("transform", d => `translate(0,${y(d.state)})`);
+      .attr("transform", d => `translate(0,${stateRowByName.get(d.state).barY})`);
 
     rowGroup
       .selectAll(".bar")
@@ -182,7 +275,7 @@ Promise.all([
       .attr("x", d => margin.left + d.idx * (widthPerBar + barGap))
       .attr("y", 0)
       .attr("width", d => d.value == null ? 0 : xScale(d.value))
-      .attr("height", y.bandwidth())
+      .attr("height", BAR_H)
       .attr("fill", d => color(d.unit))
       .filter(d => d.present && d.unverified)
       .append("title")
@@ -228,7 +321,7 @@ Promise.all([
       .append("text")
       .attr("class", (l) => l.cls)
       .attr("x", (l) => l.x)
-      .attr("y", y.bandwidth() / 2)
+      .attr("y", BAR_H / 2)
       .attr("text-anchor", (l) => l.anchor)
       .attr("alignment-baseline", "middle")
       .style("font-size", "0.72em")
@@ -250,6 +343,7 @@ Promise.all([
   }
 
   window.addEventListener('resize', handleResize);
+  renderGroupToggle();
   renderUnitButtons();
   updateChart();
 });
