@@ -10,7 +10,8 @@
   "Assam": {
     "Bigha": 14400,
     "Kattha": 720,
-    "Lecha": 144
+    "Lecha": 144,
+    "Kani": 72000
   },
   "Andaman and Nicobar Islands": {},
   "Bihar": {
@@ -35,7 +36,7 @@
     "Are": 1076.39
   },
   "Gujarat": {
-    "Bigha": 17216,
+    "Bigha": 17424,
     "Guntha": 1089
   },
   "Haryana": {
@@ -114,7 +115,7 @@
   },
   "Rajasthan": {
     "Bigha Pucca": 27225,
-    "Bigha": 17216,
+    "Bigha": 17424,
     "Biswa Pucca": 1365,
     "Biswa": 960,
     "Biswansi": 48
@@ -132,7 +133,12 @@
     "Cent": 435.6
   },
   "Tripura": {
-    "Dhur": 3.6
+    "Dhur": 3.6,
+    "Kranta": 72,
+    "Kara": 216,
+    "Ganda": 864,
+    "Kani": 17280,
+    "Drone": 276480
   },
   "Uttar Pradesh": {
     "Bigha Pucca": 27225,
