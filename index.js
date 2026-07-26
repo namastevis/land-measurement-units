@@ -214,7 +214,9 @@ Promise.all([
       .domain([0, globalMax || 1])
       .range([0, widthPerBar]);
 
-    // Region header rows: a subtle full-width band plus a bold label.
+    // Region header rows: a subtle full-width band plus a bold label. Fill
+    // is set inline (not just via CSS class) so these still render
+    // correctly even if a browser is serving a stale cached index.css.
     const headerRows = positioned.filter((r) => r.type === "header");
     svg.selectAll(".region-header-bg")
       .data(headerRows)
@@ -224,7 +226,8 @@ Promise.all([
       .attr("x", 0)
       .attr("y", (r) => r.y)
       .attr("width", chartW)
-      .attr("height", r => r.h);
+      .attr("height", r => r.h)
+      .attr("fill", "#eef1f5");
 
     svg.selectAll(".region-header-label")
       .data(headerRows)
@@ -234,6 +237,9 @@ Promise.all([
       .attr("x", 6)
       .attr("y", (r) => r.y + r.h / 2)
       .attr("alignment-baseline", "middle")
+      .attr("fill", "#445566")
+      .style("font-weight", "700")
+      .style("text-transform", "uppercase")
       .text((r) => r.label);
 
     const stateLabelSel = svg.selectAll(".state-label")
